@@ -7,7 +7,7 @@ describe Enumerable do
   let(:test_block) { proc { |i| i * 2 } }
 
   describe '#my_each' do
-    it 'returns original array' do
+    it 'returns original Array' do
       expect(test_array.my_each { |n| n*2}).to eq(test_array)
     end
 
@@ -25,8 +25,16 @@ describe Enumerable do
   end
 
   describe '#my_select' do
-    it 'returns odd numbers from array' do
+    it 'returns odd numbers from Array' do
       expect(test_array.my_select(&:odd?)).to eq([1,3])
+    end
+
+    it 'returns odd numbers from Range' do
+      expect(test_range.my_select(&:odd?)).to eq([1,3,5])
+    end
+
+    it 'returns entries with odd values from Hash' do
+      expect(test_hash.my_select{|k,v| v.odd?}).to eq({a:1,c:3})
     end
   end
 end
