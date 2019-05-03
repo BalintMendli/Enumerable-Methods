@@ -24,6 +24,24 @@ describe Enumerable do
     end
   end
 
+  describe '#my_each_with_index' do
+    it 'returns original Array' do
+      expect(test_array.my_each_with_index { |n,i| n*i}).to eq(test_array)
+    end
+
+    it 'outputs each element and index with Array' do
+      expect { test_array.my_each_with_index { |n,i| print "#{i}-#{n}," } }.to output("0-1,1-2,2-3,").to_stdout
+    end
+
+    it 'outputs each element and index with Range' do
+      expect { test_range.my_each_with_index { |n,i| print "#{i}-#{n}," } }.to output("0-1,1-2,2-3,3-4,4-5,").to_stdout
+    end
+
+    it 'outputs each key-value pair and index with Hash' do
+      expect { test_hash.my_each_with_index { |item,i| print "#{i}-#{item[0]}:#{item[1]}," } }.to output("0-a:1,1-b:2,2-c:3,").to_stdout
+    end
+  end
+
   describe '#my_select' do
     it 'returns odd numbers from Array' do
       expect(test_array.my_select(&:odd?)).to eq([1,3])
