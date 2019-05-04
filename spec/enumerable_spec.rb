@@ -4,7 +4,7 @@ describe Enumerable do
   let(:test_array) { [1, 2, 3] }
   let(:test_hash) { { a: 1, b: 2, c: 3 } }
   let(:test_range) { (1..5) }
-  let(:test_block) { proc { |i| i * 2 } }
+  let(:test_proc) { proc { |n| n * 2 } }
 
   describe '#my_each' do
     it 'returns original Array' do
@@ -113,8 +113,12 @@ describe Enumerable do
       expect(test_array.my_each { |n| n }).to match_array(test_array)
     end
 
-    it 'returns a modified array' do
-      expect(test_array.my_map{|n| n*2}).to eq([2, 4, 6])
+    it 'returns modified array' do
+      expect(test_array.my_map { |n| n * 2 }).to eq([2, 4, 6])
+    end
+
+    it 'returns modified array with Proc' do
+      expect(test_array.my_map(test_proc)).to eq([2, 4, 6])
     end
   end
 end
