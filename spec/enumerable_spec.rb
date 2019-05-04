@@ -57,28 +57,64 @@ describe Enumerable do
   end
 
   describe '#my_all?' do
-    it 'returns false if not all elements satisfy the condition' do  
-      expect(test_array.my_all?{|n| n>1}).to eq(false)
+    it 'returns false if not all elements satisfy the condition' do
+      expect(test_array.my_all? { |n| n > 1 }).to eq(false)
     end
 
-    it 'returns true if all elements satisfy the condition' do  
-      expect(test_array.my_all?{|n| n<10}).to eq(true)
+    it 'returns true if all elements satisfy the condition' do
+      expect(test_array.my_all? { |n| n < 10 }).to eq(true)
     end
 
-    it 'returns false if not all elements satisfy the condition in Range' do  
-      expect(test_range.my_all?{|n| n>1}).to eq(false)
+    it 'returns false if not all elements satisfy the condition in Range' do
+      expect(test_range.my_all? { |n| n > 1 }).to eq(false)
     end
 
-    it 'returns true if all elements satisfy the condition in Range' do  
-      expect(test_range.my_all?{|n| n<10}).to eq(true)
+    it 'returns true if all elements satisfy the condition in Range' do
+      expect(test_range.my_all? { |n| n < 10 }).to eq(true)
     end
 
-    it 'returns false if not all elements satisfy the condition in Hash' do  
-      expect(test_hash.my_all?{|k,v| v>1}).to eq(false)
+    it 'returns false if not all elements satisfy the condition in Hash' do
+      expect(test_hash.my_all? { |_k, v| v > 1 }).to eq(false)
     end
 
-    it 'returns true if all elements satisfy the condition in Hash' do  
-      expect(test_hash.my_all?{|k,v| v<10}).to eq(true)
+    it 'returns true if all elements satisfy the condition in Hash' do
+      expect(test_hash.my_all? { |_k, v| v < 10 }).to eq(true)
+    end
+  end
+
+  describe '#my_any?' do
+    it 'returns false if none of the elements satisfy the condition' do
+      expect(test_array.my_any? { |n| n > 10 }).to eq(false)
+    end
+
+    it 'returns true if at least one element satisfies the condition' do
+      expect(test_array.my_any? { |n| n == 2 }).to eq(true)
+    end
+
+    it 'returns false if none of the elements satisfy the condition in Range' do
+      expect(test_range.my_any? { |n| n > 10 }).to eq(false)
+    end
+
+    it 'returns true if at least one element satisfies the condition in Range' do
+      expect(test_range.my_any? { |n| n == 2 }).to eq(true)
+    end
+
+    it 'returns false if none of the elements satisfy the condition in Hash' do
+      expect(test_hash.my_any? { |_k, v| v > 10 }).to eq(false)
+    end
+
+    it 'returns true if at least one element satisfies the condition in Hash' do
+      expect(test_hash.my_any? { |_k, v| v == 2 }).to eq(true)
+    end
+  end
+
+  describe '#my_map?' do
+    it 'returns Array with same elements' do
+      expect(test_array.my_each { |n| n }).to match_array(test_array)
+    end
+
+    it 'returns a modified array' do
+      expect(test_array.my_map{|n| n*2}).to eq([2, 4, 6])
     end
   end
 end
