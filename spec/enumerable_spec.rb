@@ -7,10 +7,6 @@ describe Enumerable do
   let(:test_proc) { proc { |n| n * 2 } }
 
   describe '#my_each' do
-    it 'returns original Array' do
-      expect(test_array.my_each { |n| n * 2 }).to eq(test_array)
-    end
-
     it 'outputs each element times 2 with Array' do
       expect { test_array.my_each { |n| print n * 2 } }.to output('246').to_stdout
     end
@@ -25,10 +21,6 @@ describe Enumerable do
   end
 
   describe '#my_each_with_index' do
-    it 'returns original Array' do
-      expect(test_array.my_each_with_index { |n, i| n * i }).to eq(test_array)
-    end
-
     it 'outputs each element and index with Array' do
       expect { test_array.my_each_with_index { |n, i| print "#{i}-#{n}," } }.to output('0-1,1-2,2-3,').to_stdout
     end
